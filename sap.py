@@ -1258,7 +1258,7 @@ def process_entrega(session, path_excel, oc):
         # Renombrar el archivo PDF de la etiqueta
         logger.info(f"🔄 Iniciando renombrado de PDF para OC {oc}")
         # Buscar en la carpeta de Downloads donde SAP guarda los PDFs
-        carpeta_pdfs = os.path.expanduser("~/Downloads")
+        carpeta_pdfs = r"C:\Users\recepcion1\Documents\Etiquetas Entregas Entrantes Farmanet"
         renombrar_pdf_etiqueta(remito, carpeta_pdfs)
         
         logger.info(f"✅ Procesamiento completado exitosamente para OC {oc}")
