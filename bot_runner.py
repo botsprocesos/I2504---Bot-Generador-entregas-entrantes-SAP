@@ -158,7 +158,10 @@ def procesar_excel_files():
                     logger.error(f"❌ Error moviendo archivo a errores: {str(move_error)}")
             else:
                 logger.info(f"ℹ️ Archivo no existe (ya fue movido): {excel_file.name}")
+<<<<<<< HEAD
     cerrar_sap(sap_session)
+=======
+>>>>>>> f6cc96365f1ca92d53bdf4ff75d818edcc3dd1b3
 
 def job_sap_processor():
     """Job principal del bot SAP Processor"""
@@ -191,7 +194,10 @@ if __name__ == "__main__":
     # Crear directorios
     ensure_directories_sap()
     job_sap_processor()
+<<<<<<< HEAD
     
+=======
+>>>>>>> f6cc96365f1ca92d53bdf4ff75d818edcc3dd1b3
     # Ejecutar automáticamente cada 5 minutos
     # logger.info("Bot SAP Processor iniciado - ejecutándose automáticamente cada 5 minutos")
     # schedule_sap_processor() 
