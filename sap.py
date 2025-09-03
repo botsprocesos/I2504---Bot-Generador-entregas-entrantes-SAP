@@ -1225,22 +1225,18 @@ def process_entrega(session, path_excel, oc):
         time.sleep(0.5)
         session.findById("wnd[1]/usr/txtGV_0100_REMITO2").text = remito2
         time.sleep(0.5)
-        if frio:
+        
+        try:
             session.findById("wnd[1]/usr/txtGV_0100_BULTOS_FRIO").text = "1"
             time.sleep(0.5)
-            try:
-                session.findById("wnd[1]/usr/txtGV_0100_BULTOS_SECO").text = "1"
-                time.sleep(0.5)
-            except Exception:
-                logger.info("No hay campo BULTOS_SECO")
-        else:
+        except Exception:
+            logger.info("No hay campo BULTOS_SECO")
+        try:
             session.findById("wnd[1]/usr/txtGV_0100_BULTOS_SECO").text = "1"
             time.sleep(0.5)
-            try:
-                session.findById("wnd[1]/usr/txtGV_0100_BULTOS_FRIO").text = "1"
-                time.sleep(0.5)
-            except Exception:
-                logger.info("No hay campo BULTOS_FRIO")
+        except Exception:
+            logger.info("No hay campo BULTOS_FRIO")
+
         session.findById("wnd[1]/usr/txtGV_0100_FACTURA1").setFocus()
         session.findById("wnd[1]/usr/txtGV_0100_FACTURA1").caretPosition = 0
         time.sleep(0.5)
@@ -1258,7 +1254,7 @@ def process_entrega(session, path_excel, oc):
         # Renombrar el archivo PDF de la etiqueta
         logger.info(f"🔄 Iniciando renombrado de PDF para OC {oc}")
         # Buscar en la carpeta de Downloads donde SAP guarda los PDFs
-        carpeta_pdfs = os.path.expanduser("~/Downloads")
+        carpeta_pdfs = r"C:\Users\recepcion1\Documents\Etiquetas Entregas Entrantes Farmanet"
         renombrar_pdf_etiqueta(remito, carpeta_pdfs)
         
         logger.info(f"✅ Procesamiento completado exitosamente para OC {oc}")

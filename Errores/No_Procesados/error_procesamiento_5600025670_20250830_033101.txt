@@ -1,0 +1,13 @@
+ERROR EN PROCESAMIENTO DE SAP - ENTREGA NO PROCESADA
+============================================================
+OC: 5600025670
+Archivo Original: 5600025670 0082224842.xlsx
+Fecha Error: 2025-08-30 03:31:01.346101
+Archivo Movido a: C:\Users\recepcion1\Desktop\webscraping farmanet\bot_sap_processor\Errores\No_Procesados\5600025670 0082224842_ERROR_20250830_033101.xlsx
+Error: Error al cargar datos en la grilla SAP: (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files\\SAP\\FrontEnd\\SAPGUI\\sapfront.HLP', 393215, 0), None)
+============================================================
+
+ESTA ENTREGA ESPECÍFICA HA SIDO MOVIDA A ERRORES.
+No se volverá a procesar automáticamente.
+Revisar manualmente antes de reprocesar.
+Se continúa con la siguiente entrega/OC.

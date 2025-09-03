@@ -1,4 +1,6 @@
 
+from typing import List
+from schedule import logger
 import os.path, sys, win32com.client,pythoncom, win32com.client, time, subprocess
 import logging
 import psutil
@@ -29,32 +31,20 @@ def ingresarsap(amb, u, c, max_retries=10, wait_between=2):
         pythoncom.CoInitialize()
         path = r"C:\Program Files\SAP\FrontEnd\SAPGUI\saplogon.exe" #RISE SAP 800
         # 1. Matar procesos zombie
-        kill_zombie_saplogon()
+        # kill_zombie_saplogon()
         # 2. Intentar obtener objeto COM SAPGUI
-        SapGuiAuto = None
+        logger.info("Abriendo SAP...")
+        subprocess.Popen(path)
         for i in range(max_retries):
             try:
                 SapGuiAuto = win32com.client.GetObject('SAPGUI')
                 if SapGuiAuto:
-                    logger.info("SAP GUI scripting disponible.")
+                    
+                    logger.info("SAP GUI scripting disponible tras lanzar SAP GUI.")
                     break
             except Exception:
-                logger.info(f"SAP GUI scripting no disponible, intento {i+1}/{max_retries}")
+                logger.info(f"Esperando SAP GUI scripting tras lanzar, intento {i+1}/{max_retries}")
                 time.sleep(wait_between)
-        # 3. Si no se pudo, lanzar SAP GUI y reintentar
-        if not SapGuiAuto:
-            logger.info("Intentando lanzar SAP GUI...")
-            subprocess.Popen(path)
-            for i in range(max_retries):
-                try:
-                    SapGuiAuto = win32com.client.GetObject('SAPGUI')
-                    if SapGuiAuto:
-                        
-                        logger.info("SAP GUI scripting disponible tras lanzar SAP GUI.")
-                        break
-                except Exception:
-                    logger.info(f"Esperando SAP GUI scripting tras lanzar, intento {i+1}/{max_retries}")
-                    time.sleep(wait_between)
         if not SapGuiAuto:
             logger.error("No se pudo obtener el objeto SAPGUI para scripting tras varios intentos.")
             return False
@@ -93,3 +83,24 @@ def ingresarsap(amb, u, c, max_retries=10, wait_between=2):
         connection = None
         application = None
         SapGuiAuto = None
+
+
+def cerrar_sap(session=None):
+    """
+    Cierra SAP. Si se pasa una sesión, intenta cerrar elegantemente.
+    Si no funciona o no hay sesión, mata todos los procesos SAP.
+    """
+    logger = logging.getLogger(__name__)
+    
+    # Intento 1: Cerrar elegantemente si tenemos sesión
+    if session:
+        try:
+            logger.info("Cerrando SAP elegantemente...")
+            session.findById("wnd[0]/tbar[0]/okcd").text = "/nex"
+            session.findById("wnd[0]").sendVKey(0)
+            time.sleep(3)
+            logger.info("SAP cerrado elegantemente.")
+            return True
+        except Exception as e:
+            logger.warning(f"Error cerrando elegantemente: {e}")
+ 

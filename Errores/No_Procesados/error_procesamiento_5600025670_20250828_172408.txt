@@ -1,0 +1,13 @@
+ERROR EN PROCESAMIENTO DE SAP - ENTREGA NO PROCESADA
+============================================================
+OC: 5600025670
+Archivo Original: 5600025670 0082224842.xlsx
+Fecha Error: 2025-08-28 17:24:08.582307
+Archivo Movido a: C:\Users\recepcion1\Desktop\webscraping farmanet\bot_sap_processor\Errores\No_Procesados\5600025670 0082224842_ERROR_20250828_172408.xlsx
+Error: El archivo C:\Users\recepcion1\Desktop\webscraping farmanet\no_procesados\5600025670 0082224842.xlsx no contiene filas válidas.
+============================================================
+
+ESTA ENTREGA ESPECÍFICA HA SIDO MOVIDA A ERRORES.
+No se volverá a procesar automáticamente.
+Revisar manualmente antes de reprocesar.
+Se continúa con la siguiente entrega/OC.

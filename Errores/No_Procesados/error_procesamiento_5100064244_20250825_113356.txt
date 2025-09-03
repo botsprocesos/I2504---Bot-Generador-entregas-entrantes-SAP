@@ -1,0 +1,13 @@
+ERROR EN PROCESAMIENTO DE SAP - ENTREGA NO PROCESADA
+============================================================
+OC: 5100064244
+Archivo Original: 5100064244 0082219207.xlsx
+Fecha Error: 2025-08-25 11:33:56.772522
+Archivo Movido a: C:\Users\recepcion1\Desktop\webscraping farmanet\bot_sap_processor\Errores\No_Procesados\5100064244 0082219207_ERROR_20250825_113356.xlsx
+Error: EANs faltantes en SAP: ['7795348421718', '7795348424771', '7795348424795', '7795348001859']
+============================================================
+
+ESTA ENTREGA ESPECÍFICA HA SIDO MOVIDA A ERRORES.
+No se volverá a procesar automáticamente.
+Revisar manualmente antes de reprocesar.
+Se continúa con la siguiente entrega/OC.

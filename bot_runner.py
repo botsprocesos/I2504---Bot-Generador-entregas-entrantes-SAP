@@ -12,7 +12,7 @@ import schedule
 from datetime import datetime
 from pathlib import Path
 import re
-
+from abrirsap import cerrar_sap
 # Agregar el directorio padre al path para importar módulos
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -95,6 +95,8 @@ def ensure_directories_sap():
         logger.info(f"Directorio creado/verificado: {directory}")
 
 def procesar_excel_files():
+
+    #logger.info(f"Se cerró SAP.")
     """Procesar todos los Excel files en la carpeta no_procesados"""
     logger.info("🔍 Iniciando procesamiento de Excel files...")
     
@@ -141,28 +143,22 @@ def procesar_excel_files():
             logger.info(f"📋 OC identificada: {oc_number}")
             
             # Procesar la entrega usando la sesión de SAP
-            success = process_entrega(sap_session, str(excel_file), oc_number)
-            
-            if success:
-                logger.info(f"✅ Entrega procesada exitosamente: {excel_file.name}")
-                # Mover archivo procesado a carpeta de éxito o eliminarlo
-                excel_file.unlink()
-            else:
-                logger.error(f"❌ Error procesando entrega: {excel_file.name}")
-                # Mover a carpeta de errores
-                error_path = errores_dir / excel_file.name
-                excel_file.rename(error_path)
-                logger.info(f"📁 Archivo movido a errores: {error_path}")
+            process_entrega(sap_session, str(excel_file), oc_number)
+        
                 
         except Exception as e:
             logger.error(f"❌ Error procesando {excel_file.name}: {str(e)}")
-            # Mover a carpeta de errores
-            try:
-                error_path = errores_dir / excel_file.name
-                excel_file.rename(error_path)
-                logger.info(f"📁 Archivo movido a errores: {error_path}")
-            except Exception as move_error:
-                logger.error(f"❌ Error moviendo archivo a errores: {str(move_error)}")
+            # Verificar si el archivo existe antes de intentar moverlo
+            if excel_file.exists():
+                try:
+                    error_path = errores_dir / excel_file.name
+                    excel_file.rename(error_path)
+                    logger.info(f"📁 Archivo movido a errores: {error_path}")
+                except Exception as move_error:
+                    logger.error(f"❌ Error moviendo archivo a errores: {str(move_error)}")
+            else:
+                logger.info(f"ℹ️ Archivo no existe (ya fue movido): {excel_file.name}")
+    cerrar_sap(sap_session)
 
 def job_sap_processor():
     """Job principal del bot SAP Processor"""
@@ -194,7 +190,8 @@ if __name__ == "__main__":
     
     # Crear directorios
     ensure_directories_sap()
+    job_sap_processor()
     
     # Ejecutar automáticamente cada 5 minutos
-    logger.info("Bot SAP Processor iniciado - ejecutándose automáticamente cada 5 minutos")
-    schedule_sap_processor() 
+    # logger.info("Bot SAP Processor iniciado - ejecutándose automáticamente cada 5 minutos")
+    # schedule_sap_processor() 

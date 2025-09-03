@@ -1,0 +1,13 @@
+ERROR DE EAN NO ENCONTRADO - OC CANCELADA
+==================================================
+OC: 5100064635
+Fecha: 2025-09-03 10:28:45.807925
+EAN no encontrado: 7795306292466
+Archivo Excel: c:\Users\recepcion1\Desktop\webscraping farmanet\no_procesados\5100064635 0082225603.xlsx
+Motivo: EAN del Excel no existe en ninguna fila de SAP
+Estado: OC cancelada - flujo cortado
+==================================================
+
+El sistema requiere que todos los EANs del Excel existan en SAP.
+Esta OC ha sido cancelada debido a EANs no encontrados.
+Se procede con la siguiente orden de compra.
